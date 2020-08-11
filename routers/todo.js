@@ -15,6 +15,18 @@ router.post('/addTodo', async(req, res) => {
 
 })
 
+router.post('/deleteTodo/:id', async(req, res) => {
+    console.log(req.params.id)
+    let id = req.params.id
+    try {
+        const todo = await Todo.deleteOne({'_id': id})
+        res.status(201).send({ todo })
+    } catch (error) {
+        res.status(400).send(error)
+    }
+
+})
+
 router.get('/listTodo', async(req, res) => {
     try {
         const todo = await Todo.find({})
